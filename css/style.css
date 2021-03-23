@@ -12,12 +12,30 @@ input::-webkit-inner-spin-button {
     font-family: grutchFont;
     src: url('../css/grutchFont/GrutchShaded.ttf')
 }
+
 body {
-    background-color: black;
-    color: white;
+    display: flex;
+    height: 100vh;
+    background-image: url('../css/chalkboard.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 10px groove rgb(134, 65, 0);
+    color: antiquewhite;
+    font-size: 30px;
+    align-items: center;
 }
-.container {
-    margin-top: 100px;
+
+@media(max-width: 768px) {
+    body {
+        font-size: 20px;
+    }
+
+}
+
+.scoreTracker {
+    position: absolute;
+    top: 30px;
+    left: 30;
 }
 
 .currentScore, 
@@ -45,11 +63,8 @@ body {
 .gameBox {
     display: flex;
     text-align: center;
-    background-image: url('../css/chalkboard.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
     font-family: chalkBoard;
-    border: 10px groove brown;
+
 }
 
 @media(min-width: 768px) {
@@ -63,18 +78,44 @@ body {
 }
 
 #timerNumber {
-    font-size: 20px;
+    font-size: 40px;
+}
+
+@media(max-width: 768px) {
+    #timerNumber {
+        font-size: 25px;
+    }
 }
 
 #equation {
-    font-size: 30px;
+    font-size: 60px;
+    color: lightblue;
     margin-bottom: 15px;
     margin-top: 10px;
+}
+
+@media(max-width: 768px) {
+    #equation {
+        font-size: 40px;
+    }
 }
 
 #solution {
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
+
+#plus, #minus,
+#multiply, #divide {
+    height: 30px;
+}
+
+@media(max-width: 768px) {
+    #plus, #minus,
+    #multiply, #divide {
+        height: 20px;
+    }
+}
+
 
 .numberLimit {
     margin-top: 10px;
