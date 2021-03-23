@@ -14,15 +14,19 @@ input::-webkit-inner-spin-button {
 }
 
 body {
+    min-height: 100vh;
     display: flex;
-    height: 100vh;
+    align-items: center;
     background-image: url('../css/chalkboard.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     border: 10px groove rgb(134, 65, 0);
     color: antiquewhite;
     font-size: 30px;
-    align-items: center;
+}
+
+.container-fluid {
+    margin-top: 50px;
 }
 
 @media(max-width: 768px) {
@@ -52,7 +56,7 @@ body {
     color: gold;
 }
 
-@media(max-width: 576px) {
+@media(max-width: 768px) {
     .currentScore,
     .highScore {
         font-size: 15px;
@@ -67,7 +71,7 @@ body {
 
 }
 
-@media(min-width: 768px) {
+@media(min-width: 769px) {
     .gameBox {
         min-height: 400px;
     }
