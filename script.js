@@ -1,5 +1,9 @@
 $(document).ready(function() {
-    $('div').on('click', function() {
-        console.log('it is working');
-    })
+
+    var range = $('#myRange');
+    $('#numberLimit').html(range.val())
+    range.on('input', function() {
+        $('#numberLimit').html(range.val())
+    });
+    
 })

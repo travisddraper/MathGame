@@ -1,5 +1,81 @@
-div {
-    color: red;
-    margin-top: 50px;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@font-face {
+    font-family: chalkBoard;
+    src: url('../css/TenThousandReasonsFont/KgTenThousandReasons-R1ll.ttf')
+}
+@font-face {
+    font-family: grutchFont;
+    src: url('../css/grutchFont/GrutchShaded.ttf')
+}
+body {
+    background-color: black;
+    color: white;
+}
+.container {
+    margin-top: 100px;
+}
+
+.currentScore, 
+.highScore {
+    font-family: grutchFont;
+    font-size: 30px;
+}
+
+.currentScore {
+    color: lightblue;
+}
+
+.highScore {
+    color: gold;
+}
+
+@media(max-width: 576px) {
+    .currentScore,
+    .highScore {
+        font-size: 15px;
+        font-family: chalkBoard;
+    }
+}
+
+.gameBox {
+    display: flex;
     text-align: center;
+    background-image: url('../css/chalkboard.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: chalkBoard;
+    border: 10px groove brown;
+}
+
+@media(min-width: 768px) {
+    .gameBox {
+        min-height: 400px;
+    }
+}
+
+.gameContent {
+    align-self: center;
+}
+
+#timerNumber {
+    font-size: 20px;
+}
+
+#equation {
+    font-size: 30px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+#solution {
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.numberLimit {
+    margin-top: 10px;
 }

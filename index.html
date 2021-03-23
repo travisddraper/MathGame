@@ -14,6 +14,50 @@
 
   </head>
   <body>
-    <div class='container border'>Hello World!</div>
+    <div class="container">
+      <div class="row scoreTracker mb-5">
+        <div class="col-12 currentScore">
+          Current Score: 
+          <span id="currentScore">200</span>
+        </div>
+        <div class="col-12 highScore">
+          High Score: 
+          <span id="highScore">220</span>
+        </div>
+      </div>
+      <div class="gameBox col-12 col-md-8 mx-md-auto">
+        <div class="gameContent row">
+          <div class="timer col-12">
+            <p id="timerNumber" class="mb-1 mt-3">10</p>
+            <p>Seconds Remaining!</p>
+          </div>
+         <div id="equation" class="col-12">
+            
+         </div>
+         <div class="answerBox col-12">
+           <form class="answerForm">
+             <input type="number" id="solution" placeholder="Answer here" required />
+            </form>
+          </div>
+          <div class="parameterButtons col-12">
+            <input type="checkbox" id="plus" />
+            <label for="plus">+</label>
+            <input type="checkbox" id="minus" />
+            <label for="minus">-</label>
+            <input type="checkbox" id="multiply" />
+            <label for="plus">x</label>
+            <input type="checkbox" id="divide" />
+            <label for="plus">/</label>
+          </div>
+          <div class="numberLimit col-12 mb-2">
+            <p>Number Limit</p>
+            <p id="numberLimit"></p>
+            <div class="slidecontainer">
+              <input type="range" min="10" max="50" step="5" class="slider" id="myRange">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
