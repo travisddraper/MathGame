@@ -95,7 +95,7 @@ var divide = function(a,b) {
 var addToScore = function(symbols, range) {
     var currentScore = parseInt($('#currentScore').text())
     var parameterBonus = symbols.length;
-    var rangeBonus = ((range/100)-(10/100))
+    var rangeBonus = ((range/100)-(10/100)) + 10;
 
     var scorePoint = Math.floor((1+(1*rangeBonus))*parameterBonus)
     $('#currentScore').html(currentScore+scorePoint);
