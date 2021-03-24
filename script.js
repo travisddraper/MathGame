@@ -7,9 +7,65 @@
 > Build a function that creates an equation based on parameters and supplies an answer for ARJAX to compare user input against.
 [ARJAX]: 1) Updates current score based on user input (BONUS updates the score based on parameters toggled); 2) Adds 1s to timer based on user input; 3) Compares user input to devised equation
 */
+var updateHighScore = function() {
+    $.ajax({
+        type: 'PUT',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/727?api_key=25',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            task: {
+                content: parseInt($('#currentScore').text())
+            }
+        }),
+        success: function(response, textStatus) {
+            loadHighScore();
+        },
+        error: function(request, textStatus, errorMessage) {
+            console.log(errorMessage);
+        }
+    }); 
+}
+
+var loadHighScore = function() {
+    $.ajax({
+        type: 'GET',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/727?api_key=25',
+        dataType: 'json',
+        success: function(response, textStatus) {
+            $('#highScore').text(response.task.content)
+        },
+        error: function(request, textStatus, errorMessage) {
+            console.log(errorMessage);
+        }
+    });
+}
+
+
+
 var randomizer = function(max) {
     return Math.floor(Math.random() * max);
 }
+
+    //----------TIMER FUNCTIONS------------------
+var timerDeduct = function() {
+    var timer = parseInt($('#timerNumber').text());
+    if(timer > 0) {
+        timer -= 1
+        $('#timerNumber').html(timer);
+    }
+}
+var startTimer = function() {
+    interval = window.setInterval(timerDeduct, 1000);
+}
+var stopTimer = function() {
+    if(interval) {
+        window.clearInterval(interval);
+    }
+}
+
+    //------------------------------------------
+
 
     //-----------EQUATION FUNCTIONS -------------
 var add = function(a,b) {
@@ -41,8 +97,18 @@ var addToScore = function(symbols, range) {
     var parameterBonus = symbols.length;
     var rangeBonus = ((range/100)-(10/100))
 
-    var scorePoint = (1+(1*rangeBonus))*parameterBonus
+    var scorePoint = Math.floor((1+(1*rangeBonus))*parameterBonus)
     $('#currentScore').html(currentScore+scorePoint);
+}
+
+var clearScore = function() {
+    var currentScore = parseInt($('#currentScore').text());
+    var highScore = parseInt($('#highScore').text())
+
+    if(currentScore > highScore) {
+        updateHighScore();
+    }
+    $('#currentScore').text(0)
 }
 
 var symbolBuilder = function() {
@@ -82,45 +148,69 @@ var equationBuilder = function(range, symbols) {
 }
 
 
-var gamePlay = function() {
-    var range = $('#myRange').val();
-    var symbols = symbolBuilder()
+var gamePlay = function(symbols, range) {
 
-    if(parseInt($('#timerNumber').text()) > 0) {
-        var solution = equationBuilder(range, symbols);
-        console.log('expected solution', solution);
-
-        if($('#solution').text() === solution) {
-            console.log('yo');
             var timer = parseInt($('#timerNumber').text());
             $('#timerNumber').html(timer+1);
-
             addToScore(symbols, range);
-
             $('#solution').val('');
 
-            return gamePlay();
-        }
-    } else {
-        console.log("game over, time's up!");
-    }
-}
-$(document).ready(function() {
- 
-    var range = $('#myRange');
-    $('#numberLimit').html(range.val())
-    range.on('input', function() {
-        $('#numberLimit').html(range.val())
-    });
 
-    $('#equation').on('click', function() {
-        console.log('hi');
-        gamePlay();
+}
+
+var playAgain = function() {
+    
+    loadHighScore();
+
+    $('#equation').one('click', function() {
+        range = $('#myRange').val();
+        symbols = symbolBuilder()
+        solution = equationBuilder(range, symbols);
+
+        $('#solution').focus();
+        startTimer();
+
     })
 
     $('.answerForm').on('submit', function(e) {
         e.preventDefault();
-        gamePlay();
+
+        if(parseInt($('#timerNumber').text()) > 0) {
+            if(parseInt($('#solution').val()) === solution) {
+                gamePlay(symbols, range);
+                solution = equationBuilder(range, symbols);
+            }
+        } 
     })
+
+    $('#timerNumber').on('DOMNodeInserted', function() {
+        var timer = parseInt($('#timerNumber').text());
+        if(timer == 0) {
+            stopTimer();
+            clearScore();
+            $('#equation').html('Click Here to Play Again');
+            $('#timerNumber').html(10);
+            $('#solution').val('');
+
+            return playAgain();
+        }
+    })        
+
+}
+
+
+$(document).ready(function() {
+    var interval;
+    var solution;
+    var symbols;
+    var range;
+
+    $('#numberLimit').html($('#myRange').val())
+    
+    $('#myRange').on('input', function() {
+        $('#numberLimit').html($('#myRange').val())
+    });
+
+    $('#equation').one('click', playAgain());
 
 })
