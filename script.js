@@ -94,8 +94,22 @@ var divide = function(a,b) {
 
 var addToScore = function(symbols, range) {
     var currentScore = parseInt($('#currentScore').text())
-    var parameterBonus = symbols.length;
-    var rangeBonus = ((range/100)-(10/100)) + 10;
+    var parameterBonus = 0;
+    symbols.forEach(function(symbol) {
+        if(symbol === add) {
+            parameterBonus++
+        }
+        if(symbol === subtract) {
+            parameterBonus++
+        }
+        if(symbol === multiply) {
+            parameterBonus += 2
+        }
+        if(symbol === divide) {
+            parameterBonus += 2
+        }
+    })
+    var rangeBonus = ((range/100)-(10/100))*5;
 
     var scorePoint = Math.floor((1+(1*rangeBonus))*parameterBonus)
     $('#currentScore').html(currentScore+scorePoint);
